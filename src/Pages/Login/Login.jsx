@@ -9,14 +9,15 @@ import { AuthContext } from "../../Provider/AuthProvider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disable, setDisable] = useState(true);
   const { signIn } = useContext(AuthContext);
-  const navigate = useNavigate()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/"
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -49,7 +50,7 @@ const Login = () => {
           `,
         },
       });
-      navigate(from, {replace : true})
+      navigate(from, { replace: true });
     });
   };
 
@@ -120,7 +121,6 @@ const Login = () => {
                   className="input input-bordered"
                   required
                 />
-                
               </div>
               <div className="form-control mt-6">
                 <input
@@ -131,8 +131,11 @@ const Login = () => {
                 />
               </div>
             </form>
-            <h2>
-              Do not have an account? <Link to="/signup">Please Sign Up</Link>
+            <div className="flex justify-center">
+              <SocialLogin></SocialLogin>
+            </div>
+            <h2 className="py-6 text-center">
+              Have an account? <Link to="/login">Please Sign In</Link>
             </h2>
           </div>
         </div>

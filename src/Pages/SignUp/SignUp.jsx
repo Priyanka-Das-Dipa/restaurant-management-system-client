@@ -4,8 +4,11 @@ import { Helmet } from "react-helmet-async";
 import { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../hook/useAxiosPublic";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const SignUp = () => {
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -16,34 +19,41 @@ const SignUp = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
   const navigate = useNavigate();
 
-
   const onSubmit = (data) => {
-    console.log(data);
     createUser(data.email, data.password).then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
       updateUserProfile(data.name, data.PhotoURL)
+        // creating user and save the info in database
         .then(() => {
-          console.log("updated user profile");
-          reset();
-          Swal.fire({
-            title: "Successfully Created User!!!",
-            showClass: {
-              popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-              `,
-            },
-            hideClass: {
-              popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-              `,
-            },
+          const userInfo = {
+            name: data.name,
+            email: data.email,
+          };
+          axiosPublic.post("/users", userInfo).then((res) => {
+            if (res.data.insertedId) {
+              console.log("user added to the database!!!");
+              reset();
+              Swal.fire({
+                title: "Successfully Created User!!!",
+                showClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeInUp
+                    animate__faster
+                  `,
+                },
+                hideClass: {
+                  popup: `
+                    animate__animated
+                    animate__fadeOutDown
+                    animate__faster
+                  `,
+                },
+              });
+              navigate("/");
+            }
           });
-          navigate("/")
         })
         .catch((error) => console.log(error));
     });
@@ -161,7 +171,10 @@ const SignUp = () => {
                 />
               </div>
             </form>
-            <h2>
+            <div className="flex justify-center">
+              <SocialLogin></SocialLogin>
+            </div>
+            <h2 className="py-6 text-center">
               Have an account? <Link to="/login">Please Sign In</Link>
             </h2>
           </div>
