@@ -14,12 +14,13 @@ import {
 import { NavLink, Outlet } from "react-router-dom";
 import { LuMenu } from "react-icons/lu";
 import useCart from "../hook/useCart";
+import useAdmin from "../hook/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart();
 
-  // TODO : get isAdmin from the database
-  const isAdmin = true;
+    const [isAdmin] = useAdmin();
+  // const isAdmin = true;
 
   return (
     <div className="flex gap-3">
@@ -35,7 +36,7 @@ const Dashboard = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/adItems">
+                <NavLink to="/dashboard/addItems">
                   <FaUtensils></FaUtensils>
                   Add Items
                 </NavLink>
@@ -46,6 +47,7 @@ const Dashboard = () => {
                   Manage Items
                 </NavLink>
               </li>
+              
               <li>
                 <NavLink to="/dashboard/bookings">
                   <FaBook></FaBook>

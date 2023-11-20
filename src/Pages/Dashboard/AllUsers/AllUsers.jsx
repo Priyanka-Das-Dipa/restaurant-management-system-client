@@ -80,9 +80,7 @@ const AllUsers = () => {
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>
-                    {user.role === "admin" ? (
-                      <p className="text-xl font-bold">ADMIN</p>
-                    ) : (
+                    {user.role === "admin" ? 'Admin' : (
                       <button
                         onClick={() => handleMakeAdmin(user)}
                         className="btn bg-orange-400 rounded-xl  btn-lg"

@@ -135,7 +135,7 @@ const Login = () => {
               <SocialLogin></SocialLogin>
             </div>
             <h2 className="py-6 text-center">
-              Have an account? <Link to="/login">Please Sign In</Link>
+              Have an account? <Link to="/signup">Please Sign Up</Link>
             </h2>
           </div>
         </div>
