@@ -114,7 +114,7 @@ export const router = createBrowserRouter([
           </AdminRouter>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/menu/${params.id}`),
+          fetch(`https://restaurant-management-system-server-eight.vercel.app/menu/${params.id}`),
       },
       {
         path: "users",
