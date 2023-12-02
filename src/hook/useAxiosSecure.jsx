@@ -3,7 +3,7 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
 const axiosSecure = axios.create({
-  baseURL: "https://restaurant-management-system-server-eight.vercel.app",
+  baseURL: "http://localhost:5000",
 });
 const useAxiosSecure = () => {
   const { logOut } = useAuth();
@@ -45,3 +45,5 @@ const useAxiosSecure = () => {
 };
 
 export default useAxiosSecure;
+
+
